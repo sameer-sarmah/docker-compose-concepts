@@ -1,0 +1,51 @@
+#    apt-get update
+#    apt-get install sudo
+#    sudo apt-get update
+#    sudo apt-get install curl
+#	  curl -X GET http://tomcat:8080/helloworld/helloworld
+#   docker container inspect tomcat
+#   get the Getway IP value  
+#   alternative docker network inspect networkid
+#   the IPv4Address for the container 
+#  "Containers": {
+#           "5f0c90f32bc8590b5db1270581dde4831e98f71ec11e64ae110d3cb9088f74e1": {
+#               "Name": "mysql",
+#               "EndpointID": "2c1b4c23c695d26c5605715fb016baf767537f47fbeb1e290ce0a5363882700c",
+#               "MacAddress": "02:42:ac:13:00:02",
+#               "IPv4Address": "172.19.0.2/16",
+#               "IPv6Address": ""
+#           },
+#           "6a538ae68e87be2e0df1a8077c9d827e66c898393461ebb2c72236710575d6da": {
+#               "Name": "tomcat",
+#               "EndpointID": "e4bf255c0ce485a8abd790e56857c33c51a5e75e7d1d182e280d69763ae5c476",
+#               "MacAddress": "02:42:ac:13:00:03",
+#               "IPv4Address": "172.19.0.3/16",
+#               "IPv6Address": ""
+#           }
+#       }
+#	  curl -X GET http://172.19.0.3:8080/helloworld/helloworld
+version: '3'
+services:
+  tomcat:
+    container_name: tomcat
+    image: tomcat
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./tomcat/:/usr/local/tomcat/webapps/
+    depends_on:
+      - mysql
+
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+# a network with driver bridge named tomcat-mysql_default is created

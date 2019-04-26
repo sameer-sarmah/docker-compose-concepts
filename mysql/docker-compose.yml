@@ -1,0 +1,17 @@
+# If taking Docker Mastery, this is the same file you created in 
+# ./compose-assignment-2
+# If taking Swarm Mastery, this is your starting point for adding secrets :)
+# reminder, this needs to change to 3.1 version to use secrets!
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+
