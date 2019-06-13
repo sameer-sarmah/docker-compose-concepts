@@ -1,13 +1,12 @@
-# If taking Docker Mastery, this is the same file you created in 
-# ./compose-assignment-2
-# If taking Swarm Mastery, this is your starting point for adding secrets :)
-# reminder, this needs to change to 3.1 version to use secrets!
+
 version: '3'
 services:
   tomcat:
-    image: tomcat
+    build: .
     ports:
-      - "8080:8080"
+      - "8888:8080"
+      - "20021:21"
+      - "20022:22"
     volumes:
       - ./tomcat/:/usr/local/tomcat/webapps/
 
